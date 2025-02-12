@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 10-02-2025 a las 16:40:40
+-- Tiempo de generación: 12-02-2025 a las 14:30:32
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.1.10
 
@@ -20,6 +20,29 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `dblogin`
 --
+
+DELIMITER $$
+--
+-- Procedimientos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertUser` (IN `personName` VARCHAR(50), IN `personLName` VARCHAR(80), IN `personEmail` VARCHAR(150), IN `personPhone` VARCHAR(20), IN `userTypeId` INT, IN `cveUser` VARCHAR(20), IN `departament` VARCHAR(50), IN `groupStdnt` VARCHAR(20), IN `career` VARCHAR(100), IN `dependence` VARCHAR(200))   BEGIN
+    DECLARE personId INT;
+
+    -- Insertar en la tabla catpersons
+    INSERT INTO catpersons (personName, personLName, personEmail, personPhone, dtCreatedAt)
+    VALUES (personName, personLName, personEmail, personPhone, NOW());
+
+    -- Obtener el ID generado para catpersons
+    SET personId = LAST_INSERT_ID();
+
+    -- Insertar en la tabla catusers
+    INSERT INTO catusers (fk_personId, fk_UserTypeId, cveUser, userPass, departament, groupStdnt, career, dependence, dtCreatedAt)
+    VALUES (personId, userTypeId, cveUser, MD5(cveUser), departament, groupStdnt, career, dependence, NOW());
+
+END$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
