@@ -1,13 +1,5 @@
 <?php 
-	
-	//print_r($allUsers);
 
-	foreach ($allUsers as $user) {
-		echo "-------------";
-		print_r($user);	
-		echo "------------- <br>";
-
-	}
 
 ?>
 
@@ -47,17 +39,46 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>Juan Manuel</td>
-						<td>Fernández Alvarez</td>
+					<?php 
+
+					foreach ($allUsers as $user) {
+						echo "<tr>
+						<td>".$user['user_id']."</td>
+						<td>".$user['first_name']." </td>
+						<td>".$user['last_name']."</td>
 						<td>
-							<button class="btn btn-success">VER USUARIO</button>
+							<button class='btn btn-success' onclick='datos(".$user['user_id'].")'>VER USUARIO</button>
 						</td>
-					</tr>
+					</tr>";
+						
+					}
+					 ?>
+					
 				</tbody>
 			</table>
 		</div>
 	</section>
 </body>
 </html>
+<script type="text/javascript">
+	function datos(id) {
+		// Carga el array de PHP como un objeto JavaScript
+		let info = <?php echo json_encode($allUsers); ?>;
+
+		// Verifica si la estructura de datos es válida
+		if (!Array.isArray(info)) {
+			alert("Error: Los datos no son un array válido.");
+			return;
+		}
+
+		// Buscar el usuario por ID
+		let resultado = info.find(user => user.user_id == id);
+
+		// Mostrar resultado
+		if (resultado) {
+			alert("Usuario encontrado: " + JSON.stringify(resultado, null, 2));
+		} else {
+			alert("Usuario no encontrado.");
+		}
+	}
+</script>
