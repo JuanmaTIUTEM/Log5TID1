@@ -54,4 +54,5 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['listaUsers'] = 'welcome/listaUsers';
+$route['addUser'] = 'welcome/addUser';
 

@@ -19,6 +19,9 @@ class MUsers extends CI_Model{
 		}
 
 	}
+	public function postUser($data){
+		print_r($data);
+	}
 
 }
 

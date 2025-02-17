@@ -23,4 +23,15 @@ class Welcome extends CI_Controller {
 		$this->load->view('users/list',$info);
 
 	}
+
+	public function addUser(){
+		$data = $this->input->post();
+		$this->MUsers->postUser($data);//forma correcta
+
+		//$info['allUsers'] = $this->MUsers->getUsersData();//forma correcta
+
+		//$this->MUsers->getUsersData();//forma correcta
+		//$this->load->view('users/list',$info);
+
+	}
 }
